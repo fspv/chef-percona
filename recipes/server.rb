@@ -39,15 +39,38 @@ template "/etc/mysql/my.cnf" do
   notifies :reload, resources(:service => "mysql"), :delayed
 end
 
-percona_database "test3" do
+# Get all databases for this host and databases that must exist on all hosts
+databases = search(:mysql_databases, "server:#{node['fqdn']} OR server:all")
+# And create them
+databases.each do |db|
+  log db
+  percona_database db['database'] do
+    character_set db['character_set']
+    collate db['collate']
+  end
 end
 
-percona_user "test3" do
-  password '123'
+# Get all users for this host and users that must exist on all hosts
+users = search(:mysql_users, "server:#{node['fqdn']} OR server:all")
+# And create them
+users.each do |user|
+  percona_user user['user'] do
+    host user['host']
+    password user['password']
+    update_password user['update_password'] == 'true' ? true : false
+  end
 end
 
-percona_grant "test3" do
-  database 'test3'
-  user 'test3'
-  host '%'
+# Get all grants for this host and grants that must exist on all hosts
+grants = search(:mysql_grants, "server:#{node['fqdn']} OR server:all")
+# And create them
+grants.each do |grant|
+  percona_grant grant['id'] do
+    privileges grant['privileges']
+    database grant['database']
+    table grant['table']
+    user grant['user']
+    host grant['host']
+    with_option grant['with_option']
+  end
 end
