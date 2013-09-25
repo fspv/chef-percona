@@ -18,13 +18,15 @@ service "mysql" do
   action [ :enable, :start ]
 end
 
-execute "mysqladmin -u root password '#{node['percona']['mysql']['password']}'" do
+execute "mysql-set-root-password" do 
   # Set root password for already created database
+  command "mysqladmin -u root password '#{node['percona']['mysql']['password']}'"
   not_if "mysql -uroot -p'#{node['percona']['mysql']['password']}' -e ';'"
 end
 
-execute "mysqladmin -u root -p'#{node['percona']['mysql']['old_password']}' password #{node['percona']['mysql']['password']}" do
+execute "mysql-set-new-root-password" do
   # Set new root password if we know old password
+    command "mysqladmin -u root -p'#{node['percona']['mysql']['old_password']}' password #{node['percona']['mysql']['password']}"
   only_if "mysql -uroot -p'#{node['percona']['mysql']['old_password']}' -e ';'"
 end
 
@@ -37,18 +39,15 @@ template "/etc/mysql/my.cnf" do
   notifies :reload, resources(:service => "mysql"), :delayed
 end
 
-percona_database "test2" do
-  action :delete
+percona_database "test3" do
 end
 
 percona_user "test3" do
   password '123'
-  action :delete
 end
 
 percona_grant "test3" do
   database 'test3'
   user 'test3'
   host '%'
-  #action :delete
 end
