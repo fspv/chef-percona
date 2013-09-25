@@ -92,3 +92,7 @@ default['percona']['mysqld']['auto_increment_increment']           = '1'
 default['percona']['mysqld']['auto_increment_offset']              = '1'
 default['percona']['mysqld']['log_warnings']                       = '1'
 
+# [other]
+default['percona']['database_default_character_set']               = 'utf8'
+default['percona']['database_default_collate']                     = 'utf8_general_ci'
+

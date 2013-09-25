@@ -36,3 +36,19 @@ template "/etc/mysql/my.cnf" do
   group "root"
   notifies :reload, resources(:service => "mysql"), :delayed
 end
+
+percona_database "test2" do
+  action :delete
+end
+
+percona_user "test3" do
+  password '123'
+  action :delete
+end
+
+percona_grant "test3" do
+  database 'test3'
+  user 'test3'
+  host '%'
+  #action :delete
+end
