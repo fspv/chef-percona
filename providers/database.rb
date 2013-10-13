@@ -2,7 +2,7 @@ action :create do
   # Create database if it doesn't exist
   execute "mysql-create-database: #{new_resource.name}" do
     command "mysql -e 'CREATE DATABASE #{new_resource.name} CHARACTER SET = #{new_resource.character_set} COLLATE = #{new_resource.collate};'"
-    not_if "mysqlshow #{new_resource.name}"
+    not_if "mysql -e \"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '#{new_resource.name}';\" | grep -q #{new_resource.name}"
   end
   # Set character set if it differs from given
   execute "mysql-set-charset: #{new_resource.name}" do
