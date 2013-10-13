@@ -63,7 +63,9 @@ expire_logs_days                        = <%= node['percona']['mysqld']['expire_
 loose-innodb_api_enable_binlog
 loose-innodb_recovery_update_relay_log
 
-replicate-ignore-db                     = <%= node['percona']['mysqld']['replicate-ignore-db'] %>
+<% node['percona']['mysqld']['replicate-ignore-db'].each do |db| %>
+replicate-ignore-db                     = <%= db %>
+<% end %>
 
 read_only                               = <%= node['percona']['mysqld']['read_only'] %>
 
