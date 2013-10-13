@@ -20,6 +20,6 @@ action :delete do
   # Drop database if it is exists
   execute "mysql-drop-database: #{new_resource.name}" do
     command "mysql -e 'DROP DATABASE #{new_resource.name}'"
-    only_if "mysqlshow #{new_resource.name}"
+    only_if "mysql -e \"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '#{new_resource.name}';\" | grep -q #{new_resource.name}"
   end
 end
