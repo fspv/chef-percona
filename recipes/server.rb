@@ -43,7 +43,14 @@ end
 databases = search(:mysql_databases, "server:#{node['fqdn']} OR server:all")
 # And create them
 databases.each do |db|
-  log db
+  if not node['percona']['allowed_character_sets'].include? db['character_set']
+    # Set default charset if there is no match with allowed
+    db['character_set'] = node['percona']['database_default_character_set']
+  end
+  if not node['percona']['allowed_collations'].include? db['collate']
+    # Set default collation if there is no match with allowed
+    db['collate'] = node['percona']['database_default_collate']
+  end
   percona_database db['database'] do
     character_set db['character_set']
     collate db['collate']
