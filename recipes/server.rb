@@ -39,45 +39,51 @@ template "/etc/mysql/my.cnf" do
   notifies :reload, resources(:service => "mysql"), :delayed
 end
 
-# Get all databases for this host and databases that must exist on all hosts
-databases = search(:mysql_databases, "server:#{node['fqdn']} OR server:all")
-# And create them
-databases.each do |db|
-  if not node['percona']['allowed_character_sets'].include? db['character_set']
-    # Set default charset if there is no match with allowed
-    db['character_set'] = node['percona']['database_default_character_set']
-  end
-  if not node['percona']['allowed_collations'].include? db['collate']
-    # Set default collation if there is no match with allowed
-    db['collate'] = node['percona']['database_default_collate']
-  end
-  percona_database db['database'] do
-    character_set db['character_set']
-    collate db['collate']
-  end
-end
-
-# Get all users for this host and users that must exist on all hosts
-users = search(:mysql_users, "server:#{node['fqdn']} OR server:all")
-# And create them
-users.each do |user|
-  percona_user user['user'] do
-    host user['host']
-    password user['password']
-    update_password user['update_password'] == 'true' ? true : false
+if Chef::DataBag.list.key('mysql_databases')
+  # Get all databases for this host and databases that must exist on all hosts
+  databases = search(:mysql_databases, "server:#{node['fqdn']} OR server:all")
+  # And create them
+  databases.each do |db|
+    if not node['percona']['allowed_character_sets'].include? db['character_set']
+      # Set default charset if there is no match with allowed
+      db['character_set'] = node['percona']['database_default_character_set']
+    end
+    if not node['percona']['allowed_collations'].include? db['collate']
+      # Set default collation if there is no match with allowed
+      db['collate'] = node['percona']['database_default_collate']
+    end
+    percona_database db['database'] do
+      character_set db['character_set']
+      collate db['collate']
+    end
   end
 end
 
-# Get all grants for this host and grants that must exist on all hosts
-grants = search(:mysql_grants, "server:#{node['fqdn']} OR server:all")
-# And create them
-grants.each do |grant|
-  percona_grant grant['id'] do
-    privileges grant['privileges']
-    database grant['database']
-    table grant['table']
-    user grant['user']
-    host grant['host']
-    with_option grant['with_option']
+if Chef::DataBag.list.key('mysql_users')
+  # Get all users for this host and users that must exist on all hosts
+  users = search(:mysql_users, "server:#{node['fqdn']} OR server:all")
+  # And create them
+  users.each do |user|
+    percona_user user['user'] do
+      host user['host']
+      password user['password']
+      update_password user['update_password'] == 'true' ? true : false
+    end
+  end
+end
+
+if Chef::DataBag.list.key('mysql_grants')
+  # Get all grants for this host and grants that must exist on all hosts
+  grants = search(:mysql_grants, "server:#{node['fqdn']} OR server:all")
+  # And create them
+  grants.each do |grant|
+    percona_grant grant['id'] do
+      privileges grant['privileges']
+      database grant['database']
+      table grant['table']
+      user grant['user']
+      host grant['host']
+      with_option grant['with_option']
+    end
   end
 end
