@@ -28,6 +28,9 @@ plugin-dir                              = <%= node['percona']['mysqld']['plugin-
 pid-file                                = <%= node['percona']['mysqld']['pid-file'] %>
 socket                                  = <%= node['percona']['mysqld']['socket'] %>
 language                                = <%= node['percona']['mysqld']['language'] %>
+
+log-error                               = <%= node['percona']['mysqld']['log-error'] %>
+
 slow-query-log
 slow-query-log-file                     = <%= node['percona']['mysqld']['slow-query-log-file'] %>
 character-set-server                    = <%= node['percona']['mysqld']['character-set-server'] %>

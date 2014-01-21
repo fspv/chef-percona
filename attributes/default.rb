@@ -22,6 +22,8 @@ default['percona']['mysqld']['pid-file']               = '/var/run/mysqld/mysqld
 default['percona']['mysqld']['socket']                 = '/var/run/mysqld/mysqld.sock'
 default['percona']['mysqld']['language']               = '/usr/share/mysql/english'
 
+default['percona']['mysqld']['log-error']              = '/var/log/mysql/mysql-error.log'
+
 default['percona']['mysqld']['slow-query-log-file']    = '/var/log/mysql/mysql-slow.log'
 default['percona']['mysqld']['character-set-server']   = 'utf8'
 default['percona']['mysqld']['skip_name_resolve']      = '1'
