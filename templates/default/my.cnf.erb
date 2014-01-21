@@ -27,7 +27,6 @@ datadir                                 = <%= node['percona']['mysqld']['datadir
 plugin-dir                              = <%= node['percona']['mysqld']['plugin-dir'] %>
 pid-file                                = <%= node['percona']['mysqld']['pid-file'] %>
 socket                                  = <%= node['percona']['mysqld']['socket'] %>
-language                                = <%= node['percona']['mysqld']['language'] %>
 
 log-error                               = <%= node['percona']['mysqld']['log-error'] %>
 
@@ -38,7 +37,7 @@ skip_name_resolve                       = <%= node['percona']['mysqld']['skip_na
 skip-external-locking
 
 
-key_buffer                              = <%= node['percona']['mysqld']['key_buffer'] %>
+key_buffer_size                         = <%= node['percona']['mysqld']['key_buffer_size'] %>
 delay_key_write                         = <%= node['percona']['mysqld']['delay_key_write'] %>
 max_allowed_packet                      = <%= node['percona']['mysqld']['max_allowed_packet'] %>
 thread_cache_size                       = <%= node['percona']['mysqld']['thread_cache_size'] %>

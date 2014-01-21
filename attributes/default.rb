@@ -20,7 +20,6 @@ default['percona']['mysqld']['datadir']                = '/var/lib/mysql'
 default['percona']['mysqld']['plugin-dir']             = '/usr/lib/mysql/plugin'
 default['percona']['mysqld']['pid-file']               = '/var/run/mysqld/mysqld.pid'
 default['percona']['mysqld']['socket']                 = '/var/run/mysqld/mysqld.sock'
-default['percona']['mysqld']['language']               = '/usr/share/mysql/english'
 
 default['percona']['mysqld']['log-error']              = '/var/log/mysql/mysql-error.log'
 
@@ -30,7 +29,7 @@ default['percona']['mysqld']['skip_name_resolve']      = '1'
 
 
 
-default['percona']['mysqld']['key_buffer']             = '64M'
+default['percona']['mysqld']['key_buffer_size']             = '64M'
 default['percona']['mysqld']['delay_key_write']        = '1'
 default['percona']['mysqld']['max_allowed_packet']     = '16M'
 default['percona']['mysqld']['thread_cache_size']      = '128'
