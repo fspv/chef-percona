@@ -39,7 +39,7 @@ template "/etc/mysql/my.cnf" do
   notifies :reload, resources(:service => "mysql"), :delayed
 end
 
-if Chef::DataBag.list.key('mysql_databases')
+if Chef::DataBag.list.key?('mysql_databases')
   # Get all databases for this host and databases that must exist on all hosts
   databases = search(:mysql_databases, "server:#{node['fqdn']} OR server:all")
   # And create them
@@ -59,7 +59,7 @@ if Chef::DataBag.list.key('mysql_databases')
   end
 end
 
-if Chef::DataBag.list.key('mysql_users')
+if Chef::DataBag.list.key?('mysql_users')
   # Get all users for this host and users that must exist on all hosts
   users = search(:mysql_users, "server:#{node['fqdn']} OR server:all")
   # And create them
@@ -72,7 +72,7 @@ if Chef::DataBag.list.key('mysql_users')
   end
 end
 
-if Chef::DataBag.list.key('mysql_grants')
+if Chef::DataBag.list.key?('mysql_grants')
   # Get all grants for this host and grants that must exist on all hosts
   grants = search(:mysql_grants, "server:#{node['fqdn']} OR server:all")
   # And create them
