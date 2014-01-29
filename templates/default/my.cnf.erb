@@ -64,7 +64,6 @@ binlog-ignore-db                        = <%= db %>
 binlog_format                           = <%= node['percona']['mysqld']['binlog_format'] %>
 max_binlog_size                         = <%= node['percona']['mysqld']['max_binlog_size'] %>
 expire_logs_days                        = <%= node['percona']['mysqld']['expire_logs_days'] %>
-loose-innodb_api_enable_binlog
 loose-innodb_recovery_update_relay_log
 
 <% node['percona']['mysqld']['replicate-ignore-db'].each do |db| %>
