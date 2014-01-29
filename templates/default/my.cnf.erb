@@ -58,7 +58,9 @@ server-id                               = <%= node['percona']['mysqld']['server-
 
 log_bin                                 = <%= node['percona']['mysqld']['log_bin'] %>
 log_slave_updates
-binlog-ignore-db                        = <%= node['percona']['mysqld']['binlog-ignore-db'] %>
+<% node['percona']['mysqld']['binlog-ignore-db'].each do |db| %>
+binlog-ignore-db                        = <%= db %>
+<% end %>
 binlog_format                           = <%= node['percona']['mysqld']['binlog_format'] %>
 max_binlog_size                         = <%= node['percona']['mysqld']['max_binlog_size'] %>
 expire_logs_days                        = <%= node['percona']['mysqld']['expire_logs_days'] %>

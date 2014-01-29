@@ -50,14 +50,14 @@ default['percona']['mysqld']['server-id']              = '41627'
 
 default['percona']['mysqld']['log_bin']                = '/var/log/mysql/mysql-bin.log'
 
-default['percona']['mysqld']['binlog-ignore-db']       = ['test123']
+default['percona']['mysqld']['binlog-ignore-db']       = []
 default['percona']['mysqld']['binlog_format']          = 'mixed'
 default['percona']['mysqld']['max_binlog_size']        = '100M'
 default['percona']['mysqld']['expire_logs_days']       = '10'
 
 
 
-default['percona']['mysqld']['replicate-ignore-db']    = ['test123']
+default['percona']['mysqld']['replicate-ignore-db']    = []
 
 default['percona']['mysqld']['read_only']              = '0'
 
