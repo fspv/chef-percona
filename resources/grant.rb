@@ -2,7 +2,7 @@ actions :create, :delete
 default_action :create
 
 attribute :privileges,
-          :kind_of => String,
+          :kind_of => Array,
           :required => false,
           :default => 'ALL PRIVILEGES'
 

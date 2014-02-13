@@ -77,13 +77,24 @@ if Chef::DataBag.list.key?('mysql_grants')
   grants = search(:mysql_grants, "server:#{node['fqdn']} OR server:all")
   # And create them
   grants.each do |grant|
+    if grant['privileges'] == 'All'
+      privs = [
+        'Select_priv', 'Insert_priv', 'Update_priv', 'Delete_priv',
+        'Create_priv', 'Drop_priv', 'References_priv', 'Index_priv',
+        'Alter_priv', 'Create_tmp_table_priv', 'Lock_tables_priv',
+        'Create_view_priv', 'Show_view_priv', 'Create_routine_priv',
+        'Alter_routine_priv', 'Execute_priv', 'Event_priv', 'Trigger_priv'
+      ]
+    else
+      privs = grant['privileges']
+    end
     percona_grant grant['id'] do
-      privileges grant['privileges']
+      privileges privs
       database grant['database']
       table grant['table']
       user grant['user']
       host grant['host']
-      with_option grant['with_option']
+      action :create
     end
   end
 end
