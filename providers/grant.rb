@@ -47,7 +47,8 @@ action :create do
           Alter_routine_priv='#{new_resource.privileges.include?('Alter_routine_priv') ? 'Y' : 'N'}',
           Execute_priv='#{new_resource.privileges.include?('Execute_priv') ? 'Y' : 'N'}',
           Event_priv='#{new_resource.privileges.include?('Event_priv') ? 'Y' : 'N'}',
-          Trigger_priv='#{new_resource.privileges.include?('Trigger_priv') ? 'Y' : 'N'}';\""
+          Trigger_priv='#{new_resource.privileges.include?('Trigger_priv') ? 'Y' : 'N'}';
+        FLUSH PRIVILEGES;\""
     not_if "test $(mysql -r -N -B -e \"
       SELECT COUNT(*) FROM mysql.db WHERE
         Host='#{new_resource.host}' AND
@@ -82,7 +83,8 @@ action :delete do
       DELETE FROM mysql.db WHERE
         Host='#{new_resource.host}' AND
         Db='#{new_resource.database}' AND
-        User='#{new_resource.user}';\""
+        User='#{new_resource.user}';
+      FLUSH PRIVILEGES;\""
     only_if "test $(mysql -r -N -B -e \"
       SELECT COUNT(*) FROM mysql.db WHERE
         Host='#{new_resource.host}' AND
