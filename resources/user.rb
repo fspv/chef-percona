@@ -13,9 +13,10 @@ attribute :host,
 
 attribute :password,
           :kind_of => String,
-          :required => true
-
-attribute :update_password,
-          :kind_of => [ TrueClass, FalseClass ],
           :required => false,
-          :default => false
+          :default => ''
+
+attribute :privileges,
+          :kind_of => Array,
+          :required => false,
+          :default => []

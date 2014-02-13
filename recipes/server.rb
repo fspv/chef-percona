@@ -67,7 +67,7 @@ if Chef::DataBag.list.key?('mysql_users')
     percona_user user['user'] do
       host user['host']
       password user['password']
-      update_password user['update_password'] == 'true' ? true : false
+      privileges user['privileges']
     end
   end
 end
@@ -94,7 +94,6 @@ if Chef::DataBag.list.key?('mysql_grants')
       table grant['table']
       user grant['user']
       host grant['host']
-      action :create
     end
   end
 end
