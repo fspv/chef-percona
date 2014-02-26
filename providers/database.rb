@@ -6,13 +6,8 @@ action :create do
   end
   # Set character set if it differs from given
   execute "mysql-set-charset: #{new_resource.name}" do
-    command "mysql -e 'ALTER DATABASE #{new_resource.name} CHARACTER SET = #{new_resource.character_set};'"
-    not_if "mysql #{new_resource.name} -e 'SHOW VARIABLES LIKE \"character_set_database\"\\G' | grep -q '^\\ *Value: #{new_resource.character_set}$'"
-  end
-  # Set collation if it differs from given
-  execute "mysql-set-collate: #{new_resource.name}" do
-    command "mysql -e 'ALTER DATABASE #{new_resource.name} COLLATE = #{new_resource.collate}';"
-    not_if "mysql #{new_resource.name} -e 'SHOW VARIABLES LIKE \"collation_database\"\\G' | grep -q '^\\ *Value: #{new_resource.collate}$'"
+    command "mysql -e 'ALTER DATABASE #{new_resource.name} COLLATE = #{new_resource.collate};'"
+    not_if "mysql #{new_resource.name}  -N -B -e 'show variables like \"collation_database\";' | awk '{print $2}' | grep -q '^#{new_resource.collate}$'"
   end
 end
 
