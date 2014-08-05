@@ -48,7 +48,7 @@ default['percona']['mysqld']['query_cache_limit']      = '4M'
 
 default['percona']['mysqld']['server-id']              = '41627'
 
-default['percona']['mysqld']['log_bin']                = '/var/log/mysql/mysql-bin.log'
+default['percona']['mysqld']['log_bin']                = '/var/lib/mysql/mysql-bin.log'
 
 default['percona']['mysqld']['binlog-ignore-db']       = []
 default['percona']['mysqld']['binlog_format']          = 'mixed'
