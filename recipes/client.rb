@@ -11,4 +11,4 @@
 include_recipe "percona::repo"
 
 # Install percona server
-package "percona-server-client-5.5"
+package "percona-server-client"

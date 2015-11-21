@@ -11,7 +11,7 @@
 include_recipe "percona::repo"
 
 # Install percona server
-package "percona-server-server-5.5"
+package "percona-server-server"
 
 service "mysql" do
   # Enable autorun of mysql service and start it
@@ -39,9 +39,16 @@ template "/etc/mysql/my.cnf" do
   notifies :reload, resources(:service => "mysql"), :delayed
 end
 
+template "/etc/logrotate.d/percona" do
+  source "logrotate.erb"
+  mode 0644
+  owner "root"
+  group "root"
+end
+
 if Chef::DataBag.list.key?('mysql_databases')
   # Get all databases for this host and databases that must exist on all hosts
-  databases = search(:mysql_databases, "server:#{node['fqdn']} OR server:all")
+  databases = search(:mysql_databases, "server:#{node['fqdn']}")
   # And create them
   databases.each do |db|
     if not node['percona']['allowed_character_sets'].include? db['character_set']
@@ -61,7 +68,7 @@ end
 
 if Chef::DataBag.list.key?('mysql_users')
   # Get all users for this host and users that must exist on all hosts
-  users = search(:mysql_users, "server:#{node['fqdn']} OR server:all")
+  users = search(:mysql_users, "server:#{node['fqdn']}")
   # And create them
   users.each do |user|
     percona_user user['user'] do
@@ -74,7 +81,7 @@ end
 
 if Chef::DataBag.list.key?('mysql_grants')
   # Get all grants for this host and grants that must exist on all hosts
-  grants = search(:mysql_grants, "server:#{node['fqdn']} OR server:all")
+  grants = search(:mysql_grants, "server:#{node['fqdn']}")
   # And create them
   grants.each do |grant|
     if grant['privileges'] == 'All'

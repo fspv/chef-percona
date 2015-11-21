@@ -23,7 +23,12 @@ default['percona']['mysqld']['socket']                 = '/var/run/mysqld/mysqld
 
 default['percona']['mysqld']['log-error']              = '/var/log/mysql/mysql-error.log'
 
+default['percona']['mysqld']['log_output']              = 'FILE'
+
+default['percona']['mysqld']['slow-query-log']         = '1'
 default['percona']['mysqld']['slow-query-log-file']    = '/var/log/mysql/mysql-slow.log'
+default['percona']['mysqld']['log_slow_verbosity']     = 'microtime,query_plan,innodb'
+
 default['percona']['mysqld']['character-set-server']   = 'utf8'
 default['percona']['mysqld']['skip_name_resolve']      = '1'
 
@@ -76,6 +81,7 @@ default['percona']['mysqld']['innodb_data_file_path']              = 'ibdata1:10
 default['percona']['mysqld']['innodb_buffer_pool_instances']       = '1'
 default['percona']['mysqld']['innodb_thread_concurrency']          = '16'
 default['percona']['mysqld']['innodb_flush_log_at_trx_commit']     = '0'
+default['percona']['mysqld']['innodb_flush_method']                = 'O_DIRECT'
 default['percona']['mysqld']['innodb_additional_mem_pool_size']    = '32M'
 default['percona']['mysqld']['innodb_log_buffer_size']             = '128M'
 default['percona']['mysqld']['innodb_log_file_size']               = '100M'

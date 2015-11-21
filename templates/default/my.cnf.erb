@@ -30,8 +30,12 @@ socket                                  = <%= node['percona']['mysqld']['socket'
 
 log-error                               = <%= node['percona']['mysqld']['log-error'] %>
 
-slow-query-log
+log_output                              = <%= node['percona']['mysqld']['log_output'] %>
+
+slow-query-log                          = <%= node['percona']['mysqld']['slow-query-log'] %>
 slow-query-log-file                     = <%= node['percona']['mysqld']['slow-query-log-file'] %>
+log_slow_verbosity                      = <%= node['percona']['mysqld']['log_slow_verbosity'] %>
+
 character-set-server                    = <%= node['percona']['mysqld']['character-set-server'] %>
 skip_name_resolve                       = <%= node['percona']['mysqld']['skip_name_resolve'] %>
 skip-external-locking
@@ -87,6 +91,7 @@ innodb_data_file_path                   = <%= node['percona']['mysqld']['innodb_
 innodb_buffer_pool_instances            = <%= node['percona']['mysqld']['innodb_buffer_pool_instances'] %>
 innodb_thread_concurrency               = <%= node['percona']['mysqld']['innodb_thread_concurrency'] %>
 innodb_flush_log_at_trx_commit          = <%= node['percona']['mysqld']['innodb_flush_log_at_trx_commit'] %>
+innodb_flush_method                     = <%= node['percona']['mysqld']['innodb_flush_method'] %>
 innodb_additional_mem_pool_size         = <%= node['percona']['mysqld']['innodb_additional_mem_pool_size'] %>
 innodb_log_buffer_size                  = <%= node['percona']['mysqld']['innodb_log_buffer_size'] %>
 innodb_log_file_size                    = <%= node['percona']['mysqld']['innodb_log_file_size'] %>
