@@ -99,6 +99,8 @@ default['percona']['mysqld']['auto_increment_increment']           = '1'
 default['percona']['mysqld']['auto_increment_offset']              = '1'
 default['percona']['mysqld']['log_warnings']                       = '1'
 
+default['percona']['mysqld']['sql-mode']                           = ''
+
 # [other]
 default['percona']['database_default_character_set']               = 'utf8'
 default['percona']['allowed_character_sets'] = ["big5","dec8","cp850","hp8","koi8r","latin1","latin2","swe7","ascii","ujis","sjis","hebrew","tis620","euckr","koi8u","gb2312","greek","cp1250","gbk","latin5","armscii8","utf8","ucs2","cp866","keybcs2","macce","macroman","cp852","latin7","utf8mb4","cp1251","utf16","cp1256","cp1257","utf32","binary","geostd8","cp932","eucjpms"]

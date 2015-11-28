@@ -109,6 +109,8 @@ auto_increment_increment                = <%= node['percona']['mysqld']['auto_in
 auto_increment_offset                   = <%= node['percona']['mysqld']['auto_increment_offset'] %>
 log_warnings                            = <%= node['percona']['mysqld']['log_warnings'] %>
 
+sql-mode = <%= node['percona']['mysqld']['sql-mode'] %>
+
 #
 # * IMPORTANT: Additional settings that can override those from this file!
 #   The files must end with '.cnf', otherwise they'll be ignored.
