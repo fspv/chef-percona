@@ -15,7 +15,7 @@ package "percona-server-server"
 
 service "mysql" do
   # Enable autorun of mysql service and start it
-  action [ :enable, :start ]
+  action [ :enable ]
 end
 
 execute "mysql-set-root-password" do 
