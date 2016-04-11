@@ -62,6 +62,7 @@ server-id                               = <%= node['percona']['mysqld']['server-
 
 log_bin                                 = <%= node['percona']['mysqld']['log_bin'] %>
 log_slave_updates
+slave-skip-errors                       = <%= node['percona']['mysqld']['slave-skip-errors'] %>
 <% node['percona']['mysqld']['binlog-ignore-db'].each do |db| %>
 binlog-ignore-db                        = <%= db %>
 <% end %>
